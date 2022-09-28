@@ -1,5 +1,8 @@
 import type { NextPage } from 'next'
 import Head from 'next/head'
+import { PrismaClient } from '@prisma/client'
+
+export async function g
 
 const Home: NextPage = () => {
   return (

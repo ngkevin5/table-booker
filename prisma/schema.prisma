@@ -11,7 +11,7 @@ datasource db {
 }
 
 model User {
-  id          Int           @id @default(autoincrement())
+  id          Int           @id @unique @default(autoincrement())
   createdAt   DateTime      @default(now())
   email       String        @unique
   name        String
@@ -19,7 +19,7 @@ model User {
 }
 
 model Restaurant {
-  id          Int           @id @default(autoincrement())
+  id          Int           @id @unique @default(autoincrement())
   createdAt   DateTime      @default(now())
   name        String
   Reservation Reservation[]
@@ -28,8 +28,8 @@ model Restaurant {
 model Reservation {
   reservationId Int        @id @default(autoincrement())
   user          User       @relation(fields: [userId], references: [id])
-  userId        Int        @unique
+  userId        Int
   restaurant    Restaurant @relation(fields: [restaurantId], references: [id])
-  restaurantId  Int        @unique
+  restaurantId  Int
   dateTime      DateTime
 }
