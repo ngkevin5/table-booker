@@ -2,9 +2,14 @@ import type { NextPage } from 'next'
 import Head from 'next/head'
 import { PrismaClient } from '@prisma/client'
 
-export async function g
+const prisma = new PrismaClient();
 
-const Home: NextPage = () => {
+export const getServerSideProps = async () => {
+  const restaurants = await prisma.restaurant.findMany();
+  return { props: { restaurants: JSON.parse(JSON.stringify(restaurants)) } }
+}
+
+const Home: NextPage = ({ restaurants }: any) => {
   return (
     <div >
       <Head>
@@ -14,7 +19,7 @@ const Home: NextPage = () => {
       </Head>
 
       <h1 className="text-3xl font-bold underline">
-        Hello world!
+        {restaurants.map((r: any) => <div>{r.name}</div>)}
       </h1>
     </div>
   )
